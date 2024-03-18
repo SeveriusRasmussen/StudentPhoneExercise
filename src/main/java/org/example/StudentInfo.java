@@ -1,18 +1,21 @@
 package org.example;
 
+import java.util.ArrayList;
+
 public class StudentInfo {
-    private String fullName;
+ /*   private String name;
     private int phoneNr;
 
-    //private ArrayList<>
+    public String[] studentInfo;
 
-    public StudentInfo(String fullName, int phoneNr) {
+    public StudentInfo(String name, int phoneNr) {
         this.fullName = fullName;
         this.phoneNr = phoneNr;
+        fullNameAndPhone = new String[20];
     }
 
     public String getFullName() {
-        return fullName;
+        return name;
     }
 
     public int getPhoneNr() {
@@ -27,6 +30,8 @@ public class StudentInfo {
         this.phoneNr = phoneNr;
     }
 
-    // Create method
-    //
+    // Create New student method
+    // Show list method
+    // Delete student method
+    // quit method*/
 }
