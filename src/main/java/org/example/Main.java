@@ -91,6 +91,7 @@ public class Main {
             'equalsIgnoreCase' for full info of the student to delete.
             */
             if (studentInfo[i].contains(searchKey)) {
+                // Move subsequent entries up one position
                 for (int j = i; j < numOfEntries - 1; j++) {
                     studentInfo[j] = studentInfo[j + 1];
                 }
