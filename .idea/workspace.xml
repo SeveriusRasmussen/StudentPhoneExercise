@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="31701f40-64ef-41a5-86f5-2639e8504066" name="Changes" comment="2nd commit into NewMain&#10;Finally it's over. THERE IS MORE?!">
+    <list default="true" id="31701f40-64ef-41a5-86f5-2639e8504066" name="Changes" comment="3rd commit into NewMain&#10;Finally it's over!!! FOR REAL!!!!!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_phone_list.txt" beforeDir="false" afterPath="$PROJECT_DIR$/student_phone_list.txt" afterDir="false" />
@@ -71,7 +71,7 @@
       <workItem from="1710768446035" duration="5290000" />
       <workItem from="1710784996906" duration="11935000" />
       <workItem from="1710801124366" duration="6554000" />
-      <workItem from="1710832979003" duration="3993000" />
+      <workItem from="1710832979003" duration="5015000" />
     </task>
     <task id="LOCAL-00001" summary="First commit:&#10;Attributes and constructor, get/set, .txt file added.">
       <option name="closed" value="true" />
@@ -137,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710808786138</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="3rd commit into NewMain&#10;Finally it's over!!! FOR REAL!!!!!">
+      <option name="closed" value="true" />
+      <created>1710841664460</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1710841664460</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +182,7 @@
     <MESSAGE value="1st commit into NewMain" />
     <MESSAGE value="1st commit into NewMain&#10;Finally it's over." />
     <MESSAGE value="2nd commit into NewMain&#10;Finally it's over. THERE IS MORE?!" />
-    <option name="LAST_COMMIT_MESSAGE" value="2nd commit into NewMain&#10;Finally it's over. THERE IS MORE?!" />
+    <MESSAGE value="3rd commit into NewMain&#10;Finally it's over!!! FOR REAL!!!!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="3rd commit into NewMain&#10;Finally it's over!!! FOR REAL!!!!!" />
   </component>
 </project>
