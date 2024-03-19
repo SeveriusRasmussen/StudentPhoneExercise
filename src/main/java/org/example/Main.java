@@ -1,162 +1,151 @@
 package org.example;
-
+// Finally that's over... Frodo
 import java.io.*;
 import java.util.Scanner;
 
 public class Main {
-    // Define a variable to keep track of the number of entries in the array
-    private static int numOfEntries = 0;
-    // Opret Array til Student og deres tlf nr. med max 20 studenter.
-    private static final String[] studentInfo = new String[20];
+    private static final int MAX_STUDENTS = 20;
+    private static String[] studentNames = new String[MAX_STUDENTS];
+    private static String[] phoneNumbers = new String[MAX_STUDENTS];
+    private static int numStudents = 0;
 
     public static void main(String[] args) {
-        // Load from the file
         loadFromFile();
-        // Interaction with the user:
-        Scanner input = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        // While-loop med menu startup
         while (true) {
-            menu();
-            int choice = input.nextInt();
-            input.nextLine(); // Consume the newline Character
+            printMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
 
             switch (choice) {
-                // New Entry
                 case 1:
-                    addEntry();
+                    addEntry(scanner);
                     break;
-
-                // Show list
                 case 2:
                     printList();
                     break;
-
-                // Delete name/number
                 case 3:
-                    deleteStudent();
+                    deleteEntry(scanner);
                     break;
-
-                // exit the program
                 case 4:
-                    quit();
+                    saveToFile();
+                    System.out.println("Goodbye!");
                     return;
+                default:
+                    System.out.println("Invalid choice. Please enter a number from 1 to 4.");
             }
         }
     }
 
-    // Menu Method
-    private static void menu() {
-        System.out.println("-----Welcome to the student phone number list-----");
-        System.out.println("""
-                1. for new entry
-                2. for show list
-                3. for delete name/number
-                4. to quit
-                """);
+    private static void printMenu() {
+        System.out.println("----- Student Phone List Menu -----");
+        System.out.println("1. Add new entry");
+        System.out.println("2. Show list");
+        System.out.println("3. Delete entry");
+        System.out.println("4. Quit");
+        System.out.print("Enter your choice: ");
     }
 
-    // New entry method
-    private static void addEntry() {
-        // Indlæser brugerens input
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter Student name and phone number separated by space: ");
-        // Laver en ny student med brugerens input.
-        String entry = input.nextLine();
-        studentInfo[numOfEntries++] = entry;
-        saveToFile();
+    private static void addEntry(Scanner scanner) {
+        if (numStudents >= MAX_STUDENTS) {
+            System.out.println("Sorry, the list is full.");
+            return;
+        }
+
+        System.out.print("Enter student's name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter student's phone number: ");
+        String phoneNumber = scanner.nextLine();
+
+        // Check for the first available index
+        int index = findFirstAvailableIndex();
+        if (index == -1) {
+            System.out.println("No available index found.");
+            return;
+        }
+
+        studentNames[index] = name;
+        phoneNumbers[index] = phoneNumber;
+        numStudents++;
+
+        System.out.println("Entry added successfully.");
     }
 
-    // Show list method
-    public static void printList() {
-        System.out.println("Student + Phone Number List:");
-        for (int i= 0; i < numOfEntries; i++) {
-            System.out.println(studentInfo[i]);
+    private static int findFirstAvailableIndex() {
+        for (int i = 0; i < MAX_STUDENTS; i++) {
+            if (studentNames[i] == null) {
+                return i;
+            }
+        }
+        return -1; // No available index found
+    }
+
+    private static void printList() {
+        if (numStudents == 0) {
+            System.out.println("The list is empty.");
+            return;
+        }
+
+        System.out.println("----- Student Phone List -----");
+        for (int i = 0; i < numStudents; i++) {
+            if (studentNames[i] != null) {
+                System.out.printf("Name: %s%nPhone number: %s%n%n", studentNames[i], phoneNumbers[i]);
+
+            }
         }
     }
 
-    // Delete name/number method
-    private static void deleteStudent() {
-        // Indlæser brugerens input
-        Scanner input = new Scanner(System.in);
+    private static void deleteEntry(Scanner scanner) {
+        if (numStudents == 0) {
+            System.out.println("The list is empty.");
+            return;
+        }
+
         printList();
-        System.out.println("Enter the name/phone number to delete:");
-        System.out.println("!Caution!: if there are two same name \nthen write only phone to safely delete the student you wish.");
-        String searchKey = input.nextLine();
-        boolean found = false;
-        for (int i = 0; i < numOfEntries; i++) {
-            /*
-            'contains' for a part of the student to delete
-            or
-            'equalsIgnoreCase' for full info of the student to delete.
-            */
-            if (studentInfo[i].contains(searchKey)) {
-                // Move subsequent entries up one position
-                for (int j = i; j < numOfEntries - 1; j++) {
-                    studentInfo[j] = studentInfo[j + 1];
-                }
-                numOfEntries--;
-                found = true;
-                break;
-            }
+        System.out.print("Enter the index of the entry to delete: ");
+        int index = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        if (index < 0 || index >= numStudents) {
+            System.out.println("Invalid index.");
+            return;
         }
-        if (found) {
-            System.out.println("Entry deleted successfully");
-            saveToFile();
-        } else {
-            System.out.println("Entry not found.");
-        }
+
+        // Set the deleted student's name and phone number to null
+        studentNames[index] = null;
+        phoneNumbers[index] = null;
+
+        System.out.println("Entry deleted successfully.");
     }
 
-    // Quit method
-    private static void quit() {
-        System.out.println("The program died");
-    }
-
-    // Save to File
     private static void saveToFile() {
-        String fileName = "NamePhoneNr.txt";
+        String fileName = "student_phone_list.txt";
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
-            for (int i = 0; i < numOfEntries; i++) {
-                writer.println(studentInfo[i]);
+            for (int i = 0; i < numStudents; i++) {
+                writer.printf("%s,%s%n", studentNames[i], phoneNumbers[i]);
             }
             System.out.println("List saved to file successfully.");
         } catch (IOException e) {
             System.out.println("Error saving list to file: " + e.getMessage());
         }
     }
-    // Load from File
+
     private static void loadFromFile() {
-        String fileName = "NamePhoneNr.txt";
+        String fileName = "student_phone_list.txt";
         try (Scanner reader = new Scanner(new File(fileName))) {
-            int index = 0;
-            while (reader.hasNextLine() && index < studentInfo.length) {
-                studentInfo[index++] = reader.nextLine();
+            while (reader.hasNextLine() && numStudents < MAX_STUDENTS) {
+                String line = reader.nextLine();
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    studentNames[numStudents] = parts[0];
+                    phoneNumbers[numStudents] = parts[1];
+                    numStudents++;
+                }
             }
-            numOfEntries = index; // update the number of entries
             System.out.println("List loaded from file successfully.");
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
         }
     }
 }
-// Other methods for testing:
-//PrintList method test
-/*
-public static void printListTest() {
-        // define the file name
-        String fileName = "NamePhoneNr.txt";
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            // Read line from the file until the end
-            while ((line = reader.readLine()) != null) {
-                // print each line
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            // Handle any IO exceptions
-            e.printStackTrace();
-        }
-    }
-*/
