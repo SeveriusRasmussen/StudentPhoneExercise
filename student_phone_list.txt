@@ -1,7 +1,5 @@
 Søren,31248901
 Yoshi,66688666
-Nina,99999877
 Bob,53564522
 Jin,35864032
-null,null
-null,null
+Cay,42463576

@@ -111,10 +111,21 @@ public class Main {
             System.out.println("Invalid index.");
             return;
         }
+        //___________ Test
+        // Shift elements to the left to fill the gap
+        for (int i = index; i < numStudents - 1; i++) {
+            studentNames[i] = studentNames[i + 1];
+            phoneNumbers[i] = phoneNumbers[i + 1];
+        }
 
-        // Set the deleted student's name and phone number to null
+        studentNames[numStudents - 1] = null;
+        phoneNumbers[numStudents - 1] = null;
+        numStudents--;
+        //___________
+
+        /* Original: Set the deleted student's name and phone number to null
         studentNames[index] = null;
-        phoneNumbers[index] = null;
+        phoneNumbers[index] = null;*/
 
         System.out.println("Entry deleted successfully.");
     }
@@ -123,8 +134,12 @@ public class Main {
         String fileName = "student_phone_list.txt";
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
             for (int i = 0; i < numStudents; i++) {
-                writer.printf("%s,%s%n", studentNames[i], phoneNumbers[i]);
-            }
+                //_____ Test
+                if(studentNames[i] != null && phoneNumbers[i] != null) {
+                    writer.printf("%s,%s%n", studentNames[i], phoneNumbers[i]);
+                }
+                //writer.printf("%s,%s%n", studentNames[i], phoneNumbers[i]);
+            } //_____________
             System.out.println("List saved to file successfully.");
         } catch (IOException e) {
             System.out.println("Error saving list to file: " + e.getMessage());
